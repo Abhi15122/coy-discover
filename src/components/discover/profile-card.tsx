@@ -53,7 +53,7 @@ export function ProfileCard({ profile, disabled, exiting, onSwipe }: ProfileCard
       onPointerDown={begin} onPointerMove={move} onPointerUp={end}
       onPointerCancel={cancel} onLostPointerCapture={cancel}
       style={{ transform: `translateX(${x}px) rotate(${x / 24}deg)`, opacity: exiting ? 0 : 1 }}>
-      <div className="profile-photo relative aspect-[1.2] bg-lilac">
+      <div className="profile-photo relative aspect-[1.2] w-full bg-lilac">
         <Image src={profile.photo} alt={`Portrait of ${profile.name}`} fill unoptimized
           draggable={false} sizes="(max-width: 465px) 90vw, 416px"
           className="object-cover object-[center_42%]" />
