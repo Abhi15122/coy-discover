@@ -1,0 +1,46 @@
+import type { Profile } from "../lib/types.ts";
+
+const people: [string, number, string, string, string[]][] = [
+  ["Meera", 25, "New Delhi", "Always looking for a good coffee, a better playlist, and a reason to take the long way home.", ["Coffee", "Film photography", "Indie music"]],
+  ["Kabir", 27, "Gurugram", "I collect secondhand books and leave my favorite lines underlined for the next reader.", ["Bookshops", "Cricket", "Cooking"]],
+  ["Ananya", 24, "Noida", "My perfect Saturday starts with street food and ends with a film I can’t stop talking about.", ["Cinema", "Street food", "Museums"]],
+  ["Arjun", 28, "New Delhi", "I run before sunrise and make distinctly average pancakes afterwards.", ["Running", "Pancakes", "Podcasts"]],
+  ["Isha", 26, "Gurugram", "I turn every holiday into a scavenger hunt for local pottery.", ["Ceramics", "Travel", "Plants"]],
+  ["Rohan", 27, "New Delhi", "The friend who actually makes the group trip spreadsheet.", ["Hiking", "Board games", "Jazz"]],
+  ["Tara", 23, "Noida", "Usually sketching the table next to me while my chai goes cold.", ["Sketching", "Chai", "Dogs"]],
+  ["Dev", 29, "Gurugram", "I fix old bicycles and take them out for a spin on Sunday mornings.", ["Cycling", "DIY", "Breakfast"]],
+  ["Aditi", 26, "New Delhi", "I can find the brightest corner of any room for a houseplant.", ["Gardening", "Baking", "Design"]],
+  ["Neel", 28, "Noida", "Learning to make the biryani my dad never wrote a recipe for.", ["Cooking", "Live music", "History"]],
+  ["Naina", 24, "New Delhi", "Let’s browse the Sunday book market and pick out a book for each other.", ["Books", "Poetry", "Markets"]],
+  ["Vihaan", 25, "Gurugram", "If I’m wearing headphones, I’m probably listening to a film score.", ["Film scores", "Gaming", "Badminton"]],
+  ["Sana", 27, "Noida", "I try a new recipe every Friday and keep the ones my friends ask for twice.", ["Food", "Swimming", "Albums"]],
+  ["Aditya", 30, "New Delhi", "Looking for a doubles partner who forgives a terrible serve.", ["Tennis", "Salsa", "Bookshops"]],
+  ["Diya", 24, "Gurugram", "Big fan of rainy windows, card games, and extra coriander.", ["Card games", "Dumplings", "Art"]],
+  ["Yash", 26, "Noida", "I get off the metro one stop early to see what’s on the way.", ["Walks", "Architecture", "Coffee"]],
+  ["Riya", 25, "New Delhi", "My camera roll is half street cats and half experimental desserts.", ["Cats", "Baking", "Photography"]],
+  ["Veer", 28, "Gurugram", "Currently trying to grow enough basil to make my own pesto.", ["Gardening", "Pasta", "Climbing"]],
+  ["Kavya", 29, "Noida", "I sing in a small choir and keep a list of places with good acoustics.", ["Singing", "Theatre", "Travel"]],
+  ["Kunal", 27, "New Delhi", "Come for the miniature model collection, stay for the ginger chai.", ["Models", "Chai", "Cycling"]],
+  ["Leela", 26, "Gurugram", "I like a quiet beach, a loud concert, and a long weekend.", ["Live music", "Road trips", "Yoga"]],
+  ["Samar", 31, "Noida", "I make playlists for friends based on one oddly specific mood.", ["Music", "Coffee", "Cinema"]],
+  ["Zoya", 24, "New Delhi", "Looking for someone who thinks dessert is a legitimate first course.", ["Desserts", "Illustration", "Dance"]],
+  ["Manav", 27, "Gurugram", "Recovering perfectionist, enthusiastic beginner at pottery.", ["Pottery", "Squash", "Indie films"]],
+  ["Avni", 25, "Noida", "I love a picnic where everyone brings something they made.", ["Picnics", "Embroidery", "Baking"]],
+  ["Dhruv", 29, "New Delhi", "My favorite kind of trivia question starts with a song lyric.", ["Trivia", "Guitar", "Basketball"]],
+  ["Maya", 26, "Gurugram", "I’m halfway through a slow quest to find the city’s best masala dosa.", ["Food", "Comics", "Walking"]],
+  ["Ishaan", 28, "Noida", "I collect maps of places I’ve lived and doodle on the borders.", ["Drawing", "Travel", "Football"]],
+  ["Priya", 30, "New Delhi", "I’m happiest in the back of a bookshop with a stack I can barely carry.", ["Reading", "Botany", "Piano"]],
+  ["Rishi", 32, "Gurugram", "I’m learning bird calls. Results so far have confused a pigeon.", ["Birding", "Hiking", "Cooking"]],
+];
+
+export const seedProfiles: Profile[] = people.map(([name, age, city, bio, interests], index) => ({
+  id: index + 1,
+  name,
+  age,
+  city,
+  bio,
+  interests,
+  photo: `/portraits/${index + 1}.webp`,
+}));
+
+export const incomingLikes = [1, 4, 8, 13, 19, 24, 29];
