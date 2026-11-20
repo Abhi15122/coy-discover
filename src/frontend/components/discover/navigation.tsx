@@ -1,4 +1,4 @@
-import { Compass, House, Sparkles } from "lucide-react";
+import { Compass, House } from "lucide-react";
 
 export type View = "home" | "discover" | "matches";
 
@@ -10,11 +10,10 @@ interface NavigationProps {
 export function AppHeader() {
   return (
     <header className="border-b border-line bg-white">
-      <div className="main-width flex h-14 items-center gap-2.5">
-        <span className="grid size-8 place-items-center rounded-[11px] bg-ink text-white" aria-hidden="true">
-          <Sparkles size={17} />
+      <div className="main-width flex h-14 items-center">
+        <span className="text-[1.75rem] leading-none font-extrabold tracking-[-0.06em]">
+          coy<span aria-hidden="true" className="ml-0.5 inline-block size-2.5 rounded-full bg-petal" />
         </span>
-        <span className="text-xl font-extrabold tracking-[-0.06em]">sideby</span>
       </div>
     </header>
   );

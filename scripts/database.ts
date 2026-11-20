@@ -1,4 +1,4 @@
-import { openDiscoverDatabase } from "../src/server/discover.ts";
+import { openDiscoverDatabase } from "../src/backend/discover.ts";
 
 const command = process.argv[2];
 if (command !== "seed" && command !== "reset") {

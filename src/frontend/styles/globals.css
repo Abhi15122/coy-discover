@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
+  --color-ink: #211730;
+  --color-muted: #61586b;
+  --color-petal: #ff70ac;
+  --color-petal-dark: #7c1747;
+  --color-pass: #8262b8;
+  --color-lilac: #f0e9ff;
+  --color-lilac-soft: #f8f4ff;
+  --color-mint: #d3f4e3;
+  --color-line: #e6ddef;
+  --radius-panel: 1.5rem;
+  --shadow-card: 0 5px 0 #dcd0ef;
+}
+
+@layer base {
+  :root {
+    --bottom-nav-height: calc(3.8125rem + env(safe-area-inset-bottom));
+  }
+
+  body {
+    @apply bg-lilac-soft font-sans text-ink antialiased;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-petal-dark);
+    outline-offset: 4px;
+  }
+}
+
+@layer components {
+  .main-width {
+    width: min(calc(100% - 2 * clamp(1rem, 5vw, 1.5rem)), 26rem);
+    margin-inline: auto;
+  }
+
+  .action {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-ink px-4 text-sm font-bold;
+    box-shadow: 0 3px 0 var(--color-ink);
+    transition: transform 140ms ease, box-shadow 140ms ease;
+  }
+
+  .action:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--color-ink);
+  }
+
+  .action:disabled {
+    opacity: .62;
+  }
+
+  .profile-card {
+    touch-action: pan-y;
+    user-select: none;
+    transition: transform 260ms cubic-bezier(.2,.7,.3,1), opacity 260ms ease-in;
+  }
+
+  .swipe-stage[data-dragging="true"] .profile-card {
+    transition: none;
+  }
+
+  .swipe-stage {
+    animation: settle-card 220ms cubic-bezier(.2,.7,.3,1) both;
+  }
+
+  .swipe-feedback[data-swipe-action="like"] {
+    background: radial-gradient(ellipse at left center, #ff70ac35, transparent 62%);
+  }
+
+  .swipe-feedback[data-swipe-action="pass"] {
+    background: radial-gradient(ellipse at right center, #8262b833, transparent 62%);
+  }
+
+  .swipe-stage[data-dragging="false"] .swipe-feedback[data-committed="false"] {
+    transition: opacity 165ms ease-out;
+  }
+
+  .swipe-feedback[data-committed="true"] {
+    animation: fade-swipe-feedback ease-out both;
+  }
+
+  .swipe-feedback[data-swipe-action="pass"][data-committed="true"] {
+    animation-name: fade-broken-heart;
+  }
+
+  .swipe-feedback-icon {
+    animation-duration: inherit;
+  }
+
+  .swipe-feedback[data-swipe-action="like"][data-committed="true"] .swipe-feedback-icon {
+    animation-name: pulse-swipe-feedback;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+  }
+
+  .heart-piece {
+    translate: var(--heart-drift) 5px;
+    rotate: var(--heart-turn);
+    animation-name: break-heart;
+    animation-duration: inherit;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+  }
+
+  .heart-piece-left {
+    clip-path: polygon(0 0, 55% 0, 45% 40%, 56% 40%, 45% 64%, 55% 63%, 50% 100%, 0 100%);
+    --heart-drift: -11px;
+    --heart-turn: -15deg;
+  }
+
+  .heart-piece-right {
+    clip-path: polygon(55% 0, 100% 0, 100% 100%, 50% 100%, 55% 63%, 45% 64%, 56% 40%, 45% 40%);
+    --heart-drift: 11px;
+    --heart-turn: 15deg;
+  }
+
+  .match-overlay {
+    color: white;
+    background: radial-gradient(ellipse at center, rgb(55 19 52 / .68), rgb(33 23 48 / .36));
+    backdrop-filter: blur(3px);
+    animation: match-visibility ease both;
+  }
+
+  .match-message {
+    text-shadow: 0 2px 16px rgb(33 23 48 / .45);
+    animation: match-arrive 350ms cubic-bezier(.18,.73,.29,1.2) both;
+  }
+}
+
+@keyframes settle-card {
+  from { scale: .98; }
+  to { scale: 1; }
+}
+
+@keyframes fade-swipe-feedback {
+  0%, 38% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes pulse-swipe-feedback {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.18); }
+  100% { transform: scale(1.09); }
+}
+
+@keyframes break-heart {
+  from { translate: calc(var(--heart-drift) * .35) 0; rotate: 0deg; }
+  22%, 100% { translate: var(--heart-drift) 5px; rotate: var(--heart-turn); }
+}
+
+@keyframes fade-broken-heart {
+  0%, 80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes match-visibility {
+  0%, 100% { opacity: 0; }
+  12%, 82% { opacity: 1; }
+}
+
+@keyframes match-arrive {
+  from { scale: .89; transform: translateY(9px); }
+  to { scale: 1; transform: translateY(0); }
+}

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "@fontsource-variable/inter";
-import "./globals.css";
+import "@/frontend/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Sideby — Discover",
+  title: "coy. — Discover",
   description: "A standalone Discover prototype for the Coy SDE assignment.",
 };
 

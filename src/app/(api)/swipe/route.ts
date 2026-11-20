@@ -1,4 +1,4 @@
-import { getDiscoverDatabase } from "@/server/discover";
+import { getDiscoverDatabase } from "@/backend/discover";
 
 export const runtime = "nodejs";
 

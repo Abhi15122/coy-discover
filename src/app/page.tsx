@@ -1,4 +1,4 @@
-import { DiscoverApp } from "@/components/discover/discover-app";
+import { DiscoverApp } from "@/frontend/components/discover/discover-app";
 
 export default function Page() {
   return <DiscoverApp />;

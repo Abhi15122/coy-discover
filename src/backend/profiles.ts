@@ -1,4 +1,4 @@
-import type { Profile } from "../lib/types.ts";
+import type { Profile } from "../shared/types.ts";
 
 const people: [string, number, string, string, string[]][] = [
   ["Meera", 25, "New Delhi", "Always looking for a good coffee, a better playlist, and a reason to take the long way home.", ["Coffee", "Film photography", "Indie music"]],
@@ -43,4 +43,3 @@ export const seedProfiles: Profile[] = people.map(([name, age, city, bio, intere
   photo: `/portraits/${index + 1}.webp`,
 }));
 
-export const incomingLikes = [1, 4, 8, 13, 19, 24, 29];

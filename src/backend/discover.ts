@@ -1,13 +1,15 @@
+import { randomInt } from "node:crypto";
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { Profile, SwipeAction, SwipeResult } from "../lib/types.ts";
-import { incomingLikes, seedProfiles } from "./profiles.ts";
+import type { Profile, SwipeAction, SwipeResult } from "../shared/types.ts";
+import { seedProfiles } from "./profiles.ts";
 
 type ProfileRow = Omit<Profile, "interests"> & { interests: string };
 
 function publicProfile(row: ProfileRow): Profile {
-  return { ...row, interests: JSON.parse(row.interests) as string[] };
+  const { id, name, age, city, bio, interests, photo } = row;
+  return { id, name, age, city, bio, interests: JSON.parse(interests) as string[], photo };
 }
 
 const profileColumns = "p.id, p.name, p.age, p.city, p.bio, p.interests, p.photo";
@@ -37,10 +39,15 @@ export function openDiscoverDatabase(path = process.env.DISCOVER_DB_PATH ?? ".da
   if (!db.prepare("SELECT 1 FROM profiles LIMIT 1").get()) {
     db.exec("BEGIN IMMEDIATE");
     try {
+      // Keep demo matches easy to try without publishing who has liked the user.
+      const incomingLikes = new Set([seedProfiles[randomInt(3)].id]);
+      while (incomingLikes.size < 7) {
+        incomingLikes.add(seedProfiles[randomInt(seedProfiles.length)].id);
+      }
       const insert = db.prepare("INSERT OR IGNORE INTO profiles VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
       for (const profile of seedProfiles) {
         insert.run(profile.id, profile.name, profile.age, profile.city, profile.bio,
-          JSON.stringify(profile.interests), profile.photo, Number(incomingLikes.includes(profile.id)));
+          JSON.stringify(profile.interests), profile.photo, Number(incomingLikes.has(profile.id)));
       }
       db.exec("COMMIT");
     } catch (error) {
@@ -80,8 +87,7 @@ export function openDiscoverDatabase(path = process.env.DISCOVER_DB_PATH ?? ".da
       const saved = db.prepare("SELECT action FROM swipes WHERE profile_id = ?").get(profileId);
       if (saved?.action !== action) return "conflict";
 
-      const { liked_demo_user: incomingLike, ...fields } = profile;
-      const match = action === "like" && incomingLike ? publicProfile(fields) : null;
+      const match = action === "like" && profile.liked_demo_user ? publicProfile(profile) : null;
       return { createdMatch: inserted && match !== null, match };
     },
     reset() {

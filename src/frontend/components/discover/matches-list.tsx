@@ -1,7 +1,7 @@
 import { Heart } from "lucide-react";
 import Image from "next/image";
-import { ActionButton } from "@/components/ui/action-button";
-import type { Profile } from "@/lib/types";
+import type { Profile } from "@/shared/types";
+import { ActionButton } from "../ui/action-button";
 
 export function MatchesList({ profiles, onBack }: { profiles: Profile[]; onBack: () => void }) {
   if (profiles.length === 0) {
